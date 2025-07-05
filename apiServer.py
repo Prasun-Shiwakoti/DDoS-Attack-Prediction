@@ -3,16 +3,9 @@ import pandas as pd
 import joblib
 
 # Load the trained model and label encoder
-with open("MODEL/ddos_random_forest_model_1.pkl", "rb") as f:
+with open("MODEL/ddos_random_forest_model_pipeline_1.pkl", "rb") as f:
     rf_model = joblib.load(f)
 
-# Load the scaler
-with open("MODEL/ddos_scaler_1.pkl", "rb") as f:
-    scaler = joblib.load(f)
-
-# Load the pca reducer
-with open("MODEL/ddos_pca_1.pkl", "rb") as f:
-    pca_reducer = joblib.load(f)
 
 app = Flask(__name__)
 
@@ -54,10 +47,6 @@ def predict():
             df = df[expected_columns]
         except:
             return jsonify({'error': 'Invalid input data. Please provide all required fields.'})
-
-        # scale and reduce dimensions
-        df = scaler.transform(df)
-        df = pca_reducer.transform(df)
                 
         # Predict using the model
         prediction = rf_model.predict(df)

@@ -32,9 +32,8 @@ def print_log(log_id, prediction, actualValue):
 
 # drop the unnecessary columns and encode the labels
 df_simulate.drop('Label', axis=1, inplace=True)
-df_simulate['Class'] = df_simulate['Class'].apply(lambda x: 1 if x=='Attack' else 0)
 
-# make the simulation data
+# make the simulation dataframe
 df_simulate_X = df_simulate.drop("Class", axis=1)
 df_simulate_Y = df_simulate["Class"]
 
